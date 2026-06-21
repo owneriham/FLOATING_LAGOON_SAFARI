@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Floating Lagoon Safari — Arugam Bay, Sri Lanka</title>
+<meta name="description" content="Sunrise and sunset boat safaris through the mangrove channels of Arugam Bay Lagoon. Private and sharing safaris, free hotel pickup.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500;1,9..144,600&family=Work+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --lagoon-deep:#13231d;
+  --mangrove:#23382e;
+  --mangrove-2:#2c4438;
+  --still-water:#7e9a8c;
+  --sunrise-gold:#e3a83d;
+  --dawn-blush:#d98a5f;
+  --mist:#f4efe4;
+  --mist-2:#ece4d3;
+  --ink:#19241d;
+  --ink-soft:#3c4a40;
+  --line:rgba(255,255,255,0.14);
+  --line-dark:rgba(19,35,29,0.12);
+  --radius:18px;
+  --shadow:0 18px 40px -20px rgba(19,35,29,0.45);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto;}
+  *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+}
+body{
+  font-family:'Work Sans',sans-serif;
+  color:var(--ink);
+  background:var(--mist);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+img,svg{display:block;max-width:100%;}
+a{color:inherit;text-decoration:none;}
+ul{list-style:none;}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px;}
+h1,h2,h3{font-family:'Fraunces',serif;font-weight:600;line-height:1.08;letter-spacing:-0.01em;}
+.eyebrow{
+  font-family:'JetBrains Mono',monospace;
+  font-size:12.5px;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+}
+.eyebrow::before{content:"";width:22px;height:1px;background:currentColor;opacity:0.6;}
+
+/* ---------- Buttons ---------- */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  font-family:'Work Sans',sans-serif;font-weight:600;font-size:15px;
+  padding:14px 26px;border-radius:100px;border:1px solid transparent;
+  cursor:pointer;transition:transform .25s ease, background .25s ease, box-shadow .25s ease, border-color .25s ease;
+  white-space:nowrap;
+}
+.btn:focus-visible{outline:2px solid var(--sunrise-gold);outline-offset:3px;}
+.btn-primary{background:var(--sunrise-gold);color:var(--lagoon-deep);box-shadow:0 10px 24px -10px rgba(227,168,61,0.65);}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 14px 28px -10px rgba(227,168,61,0.75);}
+.btn-outline{background:transparent;color:var(--mist);border-color:rgba(244,239,228,0.45);}
+.btn-outline:hover{border-color:var(--mist);background:rgba(244,239,228,0.08);transform:translateY(-2px);}
+.btn-outline.dark{color:var(--ink);border-color:rgba(19,35,29,0.3);}
+.btn-outline.dark:hover{background:rgba(19,35,29,0.06);border-color:var(--ink);}
+.btn-wa{background:#1f7a52;color:#fff;}
+.btn-wa:hover{transform:translateY(-2px);background:#1c6c49;}
+.btn svg{width:18px;height:18px;flex-shrink:0;}
+
+/* ---------- Nav ---------- */
+header{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:18px 0;
+  background:linear-gradient(to bottom, rgba(19,35,29,0.85), rgba(19,35,29,0));
+  transition:background .3s ease, padding .3s ease;
+}
+header.scrolled{background:rgba(19,35,29,0.92);backdrop-filter:blur(10px);padding:12px 0;box-shadow:0 6px 24px -12px rgba(0,0,0,0.4);}
+nav{display:flex;align-items:center;justify-content:space-between;}
+.brand{display:flex;flex-direction:column;color:var(--mist);}
+.brand-name{font-family:'Fraunces',serif;font-style:italic;font-weight:500;font-size:20px;}
+.brand-loc{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:var(--still-water);margin-top:1px;}
+.nav-links{display:flex;align-items:center;gap:30px;}
+.nav-links a{color:var(--mist);font-size:14.5px;font-weight:500;opacity:0.85;transition:opacity .2s;position:relative;}
+.nav-links a:hover{opacity:1;}
+.nav-cta{display:flex;align-items:center;gap:14px;}
+.nav-toggle{display:none;background:none;border:none;color:var(--mist);cursor:pointer;padding:6px;}
+@media (max-width:900px){
+  .nav-links{display:none;}
+  .nav-toggle{display:block;}
+  .nav-cta .btn-outline{display:none;}
+}
+
+/* ---------- Hero ---------- */
+.hero{
+  position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;
+  overflow:hidden;
+  background:linear-gradient(180deg, #1b2e25 0%, #2c4438 38%, #5a6b4f 58%, #b9874f 78%, #e3a83d 100%);
+}
+.hero-sky-glow{
+  position:absolute;inset:0;
+  background:radial-gradient(60% 50% at 50% 8%, rgba(227,168,61,0.35), transparent 70%);
+  pointer-events:none;
+}
+.hero-birds{position:absolute;inset:0;pointer-events:none;}
+.bird{position:absolute;opacity:0.55;animation:drift 30s linear infinite;}
+.bird svg{width:26px;height:14px;}
+.bird.b1{top:18%;left:-5%;animation-duration:38s;}
+.bird.b2{top:26%;left:-5%;animation-duration:46s;animation-delay:-12s;}
+.bird.b3{top:14%;left:-5%;animation-duration:52s;animation-delay:-30s;opacity:0.35;}
+@keyframes drift{from{transform:translateX(0);}to{transform:translateX(115vw);}}
+
+.hero-inner{position:relative;z-index:2;padding:140px 24px 0;text-align:center;}
+.hero-eyebrow{color:var(--mist);opacity:0.85;justify-content:center;margin-bottom:22px;}
+.hero h1{
+  font-size:clamp(40px,7vw,84px);
+  color:var(--mist);
+  margin:0 auto;max-width:920px;
+}
+.hero h1 em{font-style:italic;color:var(--sunrise-gold);}
+.hero-reflection{
+  font-size:clamp(40px,7vw,84px);
+  color:var(--mist);
+  max-width:920px;margin:0 auto;
+  transform:scaleY(-1);
+  -webkit-mask-image:linear-gradient(to bottom, rgba(0,0,0,0.32), transparent 70%);
+  mask-image:linear-gradient(to bottom, rgba(0,0,0,0.32), transparent 70%);
+  opacity:0.55;
+  filter:blur(0.3px);
+  user-select:none;
+  pointer-events:none;
+}
+.hero-reflection em{font-style:italic;color:var(--sunrise-gold);}
+.hero-water-line{
+  position:relative;height:1px;background:rgba(244,239,228,0.35);
+  margin:0 auto;max-width:920px;
+}
+.hero-sub{
+  color:var(--mist);opacity:0.88;max-width:520px;margin:26px auto 0;
+  font-size:16.5px;
+}
+.hero-ctas{display:flex;gap:16px;justify-content:center;margin-top:34px;flex-wrap:wrap;}
+.hero-boat{position:absolute;left:0;bottom:30%;width:100%;pointer-events:none;}
+.hero-boat svg{position:absolute;animation:sail 34s linear infinite;opacity:0.5;}
+@keyframes sail{from{transform:translateX(-10vw) scaleX(1);}to{transform:translateX(110vw) scaleX(1);}}
+
+.scroll-cue{
+  position:absolute;bottom:28px;left:50%;transform:translateX(-50%);
+  color:var(--mist);opacity:0.7;display:flex;flex-direction:column;align-items:center;gap:8px;
+  font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;
+  animation:bob 2.6s ease-in-out infinite;
+}
+@keyframes bob{0%,100%{transform:translate(-50%,0);}50%{transform:translate(-50%,8px);}}
+
+/* ---------- Ripple divider ---------- */
+.ripple{display:block;width:100%;height:46px;}
+.ripple path{animation:ripple-move 16s ease-in-out infinite;}
+@keyframes ripple-move{0%{transform:translateX(0);}50%{transform:translateX(-3%);}100%{transform:translateX(0);}}
+
+/* ---------- Sections generic ---------- */
+section{padding:110px 0;}
+.section-light{background:var(--mist);color:var(--ink);}
+.section-dark{background:var(--lagoon-deep);color:var(--mist);}
+.section-mangrove{background:var(--mangrove);color:var(--mist);}
+.section-head{max-width:680px;margin-bottom:56px;}
+.section-head .eyebrow{margin-bottom:18px;color:var(--dawn-blush);}
+.section-dark .section-head .eyebrow, .section-mangrove .section-head .eyebrow{color:var(--sunrise-gold);}
+.section-head h2{font-size:clamp(30px,4.2vw,46px);}
+.section-head p{margin-top:16px;font-size:16.5px;opacity:0.85;max-width:560px;}
+
+/* ---------- About ---------- */
+.about-grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:70px;align-items:start;}
+.about-grid p{font-size:16.5px;color:var(--ink-soft);margin-bottom:18px;max-width:520px;}
+.about-grid p:last-of-type{margin-bottom:0;}
+.about-illustration{
+  border-radius:var(--radius);overflow:hidden;background:linear-gradient(165deg,#2c4438,#13231d);
+  aspect-ratio:4/5;position:relative;box-shadow:var(--shadow);
+}
+.about-illustration svg{position:absolute;inset:0;width:100%;height:100%;}
+.about-stats{display:flex;gap:34px;margin-top:34px;flex-wrap:wrap;}
+.about-stat .num{font-family:'JetBrains Mono',monospace;font-size:26px;color:var(--dawn-blush);}
+.about-stat .label{font-size:13px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:0.08em;margin-top:4px;}
+@media (max-width:860px){.about-grid{grid-template-columns:1fr;gap:40px;}.about-illustration{order:-1;aspect-ratio:16/10;}}
+
+/* ---------- Safaris (schedule) ---------- */
+.safari-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;}
+.safari-card{
+  background:var(--mangrove-2);border:1px solid var(--line);border-radius:var(--radius);
+  padding:38px;position:relative;overflow:hidden;
+}
+.safari-card .time{
+  font-family:'JetBrains Mono',monospace;font-size:34px;color:var(--sunrise-gold);letter-spacing:-0.02em;
+}
+.safari-card.evening .time{color:var(--dawn-blush);}
+.safari-card .name{font-family:'Fraunces',serif;font-style:italic;font-size:22px;margin-top:6px;color:var(--mist);}
+.safari-card .desc{margin-top:16px;opacity:0.82;font-size:15px;max-width:380px;}
+.safari-list{margin-top:22px;display:flex;flex-direction:column;gap:10px;}
+.safari-list li{display:flex;gap:10px;font-size:14.5px;opacity:0.9;align-items:flex-start;}
+.safari-list li svg{width:16px;height:16px;flex-shrink:0;margin-top:3px;color:var(--sunrise-gold);}
+.safari-card.evening .safari-list li svg{color:var(--dawn-blush);}
+.safari-icon{position:absolute;top:34px;right:34px;opacity:0.18;width:54px;height:54px;}
+@media (max-width:860px){.safari-grid{grid-template-columns:1fr;}}
+
+/* ---------- Packages ---------- */
+.pkg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;align-items:stretch;}
+.pkg-card{
+  background:#fff;border:1px solid var(--line-dark);border-radius:var(--radius);
+  padding:34px;display:flex;flex-direction:column;box-shadow:var(--shadow);position:relative;
+}
+.pkg-card.featured{background:var(--lagoon-deep);color:var(--mist);border-color:transparent;}
+.pkg-tag{
+  position:absolute;top:-13px;left:34px;background:var(--sunrise-gold);color:var(--lagoon-deep);
+  font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;
+  padding:6px 12px;border-radius:100px;
+}
+.pkg-name{font-family:'Fraunces',serif;font-style:italic;font-size:22px;}
+.pkg-sub{font-size:13.5px;color:var(--ink-soft);margin-top:4px;}
+.pkg-card.featured .pkg-sub{color:var(--still-water);}
+.pkg-price{font-family:'JetBrains Mono',monospace;font-size:38px;margin-top:20px;}
+.pkg-price span{font-size:14px;opacity:0.65;font-family:'Work Sans',sans-serif;}
+.pkg-feat{margin-top:22px;display:flex;flex-direction:column;gap:11px;flex-grow:1;}
+.pkg-feat li{display:flex;gap:9px;font-size:14.5px;align-items:flex-start;}
+.pkg-feat li svg{width:15px;height:15px;flex-shrink:0;margin-top:3px;color:var(--dawn-blush);}
+.pkg-card.featured .pkg-feat li svg{color:var(--sunrise-gold);}
+.pkg-card .btn{margin-top:26px;width:100%;}
+.pkg-note{margin-top:30px;font-size:13.5px;color:var(--ink-soft);}
+@media (max-width:900px){.pkg-grid{grid-template-columns:1fr;}}
+
+/* ---------- Gallery ---------- */
+.gallery-note{font-size:13.5px;color:var(--still-water);margin-top:-30px;margin-bottom:46px;}
+.gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+.gtile{
+  border-radius:14px;aspect-ratio:1/1;position:relative;overflow:hidden;
+  display:flex;align-items:flex-end;padding:18px;
+}
+.gtile span{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:rgba(244,239,228,0.92);position:relative;z-index:2;}
+.gtile::after{content:"";position:absolute;inset:0;background:linear-gradient(to top, rgba(19,35,29,0.65), transparent 55%);z-index:1;}
+.gtile svg{position:absolute;inset:0;width:100%;height:100%;}
+.gtile.tall{grid-row:span 2;aspect-ratio:auto;}
+@media (max-width:860px){.gallery-grid{grid-template-columns:repeat(2,1fr);}.gtile.tall{grid-row:span 1;aspect-ratio:1/1;}}
+
+/* ---------- Pickup ---------- */
+.pickup-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
+.pickup-list{display:flex;flex-direction:column;gap:24px;}
+.pickup-item{display:flex;gap:18px;}
+.pickup-item .ic{
+  width:46px;height:46px;border-radius:50%;background:var(--mist-2);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--dawn-blush);
+}
+.pickup-item .ic svg{width:22px;height:22px;}
+.pickup-item h4{font-size:16.5px;font-weight:600;}
+.pickup-item p{font-size:14.5px;color:var(--ink-soft);margin-top:4px;}
+.map-frame{border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--line-dark);aspect-ratio:4/3;}
+.map-frame iframe{width:100%;height:100%;border:0;display:block;filter:saturate(0.85) sepia(0.06);}
+@media (max-width:860px){.pickup-grid{grid-template-columns:1fr;gap:40px;}}
+
+/* ---------- Reviews ---------- */
+.review-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.review-card{background:rgba(244,239,228,0.06);border:1px solid var(--line);border-radius:var(--radius);padding:30px;}
+.stars{display:flex;gap:3px;color:var(--sunrise-gold);margin-bottom:16px;}
+.stars svg{width:15px;height:15px;}
+.review-card p.quote{font-size:15px;opacity:0.92;line-height:1.65;}
+.review-who{margin-top:20px;display:flex;align-items:center;gap:12px;}
+.review-avatar{width:38px;height:38px;border-radius:50%;background:var(--mangrove-2);display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-style:italic;color:var(--sunrise-gold);font-size:15px;}
+.review-name{font-size:14px;font-weight:600;}
+.review-loc{font-size:12.5px;color:var(--still-water);}
+@media (max-width:900px){.review-grid{grid-template-columns:1fr;}}
+
+/* ---------- Book ---------- */
+.book-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;}
+.book-info h3{font-family:'Fraunces',serif;font-style:italic;font-size:24px;margin-bottom:18px;}
+.book-info .contact-row{display:flex;align-items:center;gap:14px;margin-bottom:18px;}
+.book-info .contact-row .ic{width:42px;height:42px;border-radius:50%;background:rgba(244,239,228,0.08);display:flex;align-items:center;justify-content:center;color:var(--sunrise-gold);flex-shrink:0;}
+.book-info .contact-row .ic svg{width:19px;height:19px;}
+.book-info .contact-row a, .book-info .contact-row span{font-size:15.5px;}
+.book-info .contact-label{display:block;font-size:11.5px;color:var(--still-water);text-transform:uppercase;letter-spacing:0.08em;font-family:'JetBrains Mono',monospace;margin-bottom:2px;}
+
+form{display:flex;flex-direction:column;gap:16px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+label{font-size:12.5px;text-transform:uppercase;letter-spacing:0.07em;color:var(--still-water);font-family:'JetBrains Mono',monospace;margin-bottom:7px;display:block;}
+.field input, .field select, .field textarea{
+  width:100%;background:rgba(244,239,228,0.06);border:1px solid var(--line);border-radius:10px;
+  padding:13px 14px;color:var(--mist);font-family:'Work Sans',sans-serif;font-size:15px;
+}
+.field input::placeholder, .field textarea::placeholder{color:rgba(244,239,228,0.4);}
+.field select option{color:#000;}
+.field input:focus, .field select:focus, .field textarea:focus{outline:2px solid var(--sunrise-gold);outline-offset:1px;border-color:transparent;}
+.field textarea{resize:vertical;min-height:90px;}
+form .btn{margin-top:6px;}
+@media (max-width:860px){.book-grid{grid-template-columns:1fr;gap:46px;}.form-row{grid-template-columns:1fr;}}
+
+/* ---------- Footer ---------- */
+footer{background:var(--lagoon-deep);color:var(--still-water);padding:50px 0 30px;border-top:1px solid var(--line);}
+.footer-grid{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:24px;}
+.footer-brand{color:var(--mist);font-family:'Fraunces',serif;font-style:italic;font-size:19px;}
+.footer-links{display:flex;gap:24px;flex-wrap:wrap;}
+.footer-links a{font-size:13.5px;opacity:0.85;}
+.footer-fine{font-size:12.5px;margin-top:30px;opacity:0.65;border-top:1px solid var(--line);padding-top:20px;}
+
+/* ---------- Floating WhatsApp ---------- */
+.fab-wa{
+  position:fixed;bottom:24px;right:24px;z-index:90;
+  width:58px;height:58px;border-radius:50%;background:#1f7a52;color:#fff;
+  display:flex;align-items:center;justify-content:center;box-shadow:0 12px 26px -8px rgba(31,122,82,0.6);
+  transition:transform .25s ease;
+}
+.fab-wa:hover{transform:scale(1.08);}
+.fab-wa svg{width:28px;height:28px;}
+
+/* ---------- Mobile menu ---------- */
+.mobile-menu{
+  position:fixed;inset:0;background:var(--lagoon-deep);z-index:200;display:flex;flex-direction:column;
+  padding:24px;transform:translateX(100%);transition:transform .35s ease;
+}
+.mobile-menu.open{transform:translateX(0);}
+.mobile-menu-top{display:flex;justify-content:space-between;align-items:center;}
+.mobile-menu-top button{background:none;border:none;color:var(--mist);}
+.mobile-menu nav{flex-direction:column;align-items:flex-start;gap:0;margin-top:60px;}
+.mobile-menu a{font-family:'Fraunces',serif;font-size:30px;color:var(--mist);padding:16px 0;border-bottom:1px solid var(--line);width:100%;}
+.mobile-menu .btn{margin-top:30px;width:100%;}
+
+@media (max-width:640px){
+  section{padding:80px 0;}
+  .pkg-grid, .review-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<header id="siteHeader">
+  <div class="wrap">
+    <nav>
+      <a href="#top" class="brand">
+        <span class="brand-name">Floating Lagoon Safari</span>
+        <span class="brand-loc">Arugam Bay · Sri Lanka</span>
+      </a>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#safaris">Safaris</a>
+        <a href="#packages">Packages</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#reviews">Reviews</a>
+      </div>
+      <div class="nav-cta">
+        <a class="btn btn-outline" href="#book">Check Availability</a>
+        <a class="btn btn-wa" href="https://wa.me/940725715527" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.39 1.27 4.81L2 22l5.42-1.36a9.93 9.93 0 0 0 4.62 1.14h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2zm5.78 14.06c-.25.69-1.24 1.27-2.01 1.43-.55.11-1.27.2-3.68-.79-3.09-1.28-5.08-4.41-5.23-4.61-.15-.2-1.25-1.66-1.25-3.17s.78-2.25 1.06-2.56c.27-.31.6-.38.8-.38.2 0 .4 0 .57.01.18.01.43-.07.67.51.25.6.85 2.07.92 2.22.07.15.12.33.02.53-.1.2-.15.32-.3.49-.15.17-.31.38-.45.51-.15.15-.3.31-.13.61.17.3.76 1.25 1.63 2.03 1.12 1 2.06 1.31 2.36 1.46.3.15.48.13.65-.08.18-.2.75-.87.95-1.17.2-.3.4-.25.67-.15.27.1 1.73.81 2.02.96.3.15.5.22.57.35.07.13.07.74-.18 1.43z"/></svg>
+          WhatsApp
+        </a>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="Open menu">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-top">
+    <span class="brand-name" style="color:var(--mist)">Floating Lagoon Safari</span>
+    <button id="navClose" aria-label="Close menu">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg>
+    </button>
+  </div>
+  <nav>
+    <a href="#about">About</a>
+    <a href="#safaris">Safaris</a>
+    <a href="#packages">Packages</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#reviews">Reviews</a>
+    <a href="#book">Book</a>
+  </nav>
+  <a class="btn btn-wa" href="https://wa.me/940725715527" target="_blank" rel="noopener">Message us on WhatsApp</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-sky-glow"></div>
+  <div class="hero-birds">
+    <span class="bird b1"><svg viewBox="0 0 26 14" fill="none" stroke="#f4efe4" stroke-width="1.4"><path d="M1 8 Q7 1 13 8 Q19 1 25 8"/></svg></span>
+    <span class="bird b2"><svg viewBox="0 0 26 14" fill="none" stroke="#f4efe4" stroke-width="1.4"><path d="M1 8 Q7 1 13 8 Q19 1 25 8"/></svg></span>
+    <span class="bird b3"><svg viewBox="0 0 26 14" fill="none" stroke="#f4efe4" stroke-width="1.4"><path d="M1 8 Q7 1 13 8 Q19 1 25 8"/></svg></span>
+  </div>
+  <div class="hero-boat">
+    <svg width="64" height="22" viewBox="0 0 64 22" fill="none" style="bottom:0;"><path d="M4 16 Q32 22 60 16 L54 16 Q32 19 10 16 Z" fill="#f4efe4"/><line x1="32" y1="16" x2="32" y2="3" stroke="#f4efe4" stroke-width="1.3"/><path d="M32 4 L44 14 L32 14 Z" fill="#f4efe4" opacity="0.85"/></svg>
+  </div>
+
+  <div class="hero-inner">
+    <div class="eyebrow hero-eyebrow">06:00 Sunrise &amp; 15:30 Sunset Departures</div>
+    <h1>Where the lagoon<br><em>holds still</em> at first light</h1>
+    <div class="hero-water-line"></div>
+    <div class="hero-reflection" aria-hidden="true">Where the lagoon<br><em>holds still</em> at first light</div>
+    <p class="hero-sub">Glide through the quiet mangrove channels of Arugam Bay Lagoon — crocodiles on the banks, kingfishers overhead, and a sky that changes colour with every paddle stroke.</p>
+    <div class="hero-ctas">
+      <a class="btn btn-primary" href="https://wa.me/940725715527?text=Hi!%20I'd%20like%20to%20book%20a%20Floating%20Lagoon%20Safari." target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.39 1.27 4.81L2 22l5.42-1.36a9.93 9.93 0 0 0 4.62 1.14h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2zm5.78 14.06c-.25.69-1.24 1.27-2.01 1.43-.55.11-1.27.2-3.68-.79-3.09-1.28-5.08-4.41-5.23-4.61-.15-.2-1.25-1.66-1.25-3.17s.78-2.25 1.06-2.56c.27-.31.6-.38.8-.38.2 0 .4 0 .57.01.18.01.43-.07.67.51.25.6.85 2.07.92 2.22.07.15.12.33.02.53-.1.2-.15.32-.3.49-.15.17-.31.38-.45.51-.15.15-.3.31-.13.61.17.3.76 1.25 1.63 2.03 1.12 1 2.06 1.31 2.36 1.46.3.15.48.13.65-.08.18-.2.75-.87.95-1.17.2-.3.4-.25.67-.15.27.1 1.73.81 2.02.96.3.15.5.22.57.35.07.13.07.74-.18 1.43z"/></svg>
+        Book on WhatsApp
+      </a>
+      <a class="btn btn-outline" href="#packages">View Safari Packages</a>
+    </div>
+  </div>
+
+  <div class="scroll-cue">
+    <span>Scroll</span>
+    <svg width="14" height="20" viewBox="0 0 14 20" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="1" width="12" height="18" rx="6"/><line x1="7" y1="6" x2="7" y2="10"/></svg>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section-light" id="about">
+  <div class="wrap">
+    <div class="about-grid">
+      <div>
+        <div class="eyebrow" style="color:var(--dawn-blush)">The Experience</div>
+        <h2 style="font-size:clamp(28px,3.6vw,40px);margin-top:16px;">A slow boat through one of the East Coast's quietest wild places</h2>
+        <p style="margin-top:26px;">Arugam Bay isn't only known for its waves. Two kilometres inland, the lagoon spreads into a maze of mangrove channels, sandbanks and open water that wakes up long before the surf does. We take small boats in, engines low, so the lagoon barely notices we're there.</p>
+        <p>Mornings belong to the wildlife — water monitors and crocodiles sunning on the banks, painted storks and brahminy kites working the shallows, the occasional troop of macaques moving through the mangrove roots. Evenings belong to the sky, as the lagoon turns into a mirror for the sunset over Pottuvil.</p>
+        <p>Every safari is led by guides who grew up on this water and know it by season, not by schedule.</p>
+        <div class="about-stats">
+          <div class="about-stat"><div class="num">2</div><div class="label">Departures Daily</div></div>
+          <div class="about-stat"><div class="num">06–14</div><div class="label">Local Guides on Rotation</div></div>
+          <div class="about-stat"><div class="num">100%</div><div class="label">Locally Owned &amp; Run</div></div>
+        </div>
+      </div>
+      <div class="about-illustration">
+        <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice">
+          <rect width="400" height="500" fill="#13231d"/>
+          <rect y="320" width="400" height="180" fill="#1c3327"/>
+          <g opacity="0.8" stroke="#7e9a8c" stroke-width="3" fill="none">
+            <path d="M30 500 C 60 420, 50 380, 90 330"/>
+            <path d="M70 500 C 100 440, 90 400, 120 340"/>
+            <path d="M330 500 C 300 430, 320 390, 290 330"/>
+            <path d="M370 500 C 340 440, 360 400, 330 340"/>
+          </g>
+          <circle cx="200" cy="150" r="70" fill="#e3a83d" opacity="0.9"/>
+          <rect y="330" width="400" height="6" fill="#e3a83d" opacity="0.5"/>
+          <ellipse cx="200" cy="345" rx="60" ry="14" fill="#e3a83d" opacity="0.25"/>
+          <path d="M150 420 Q200 405 250 420 L235 425 Q200 415 165 425 Z" fill="#f4efe4" opacity="0.85"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<svg class="ripple" viewBox="0 0 1200 46" preserveAspectRatio="none"><path d="M0 24 Q150 4 300 24 T600 24 T900 24 T1200 24 V46 H0 Z" fill="#23382e"/></svg>
+
+<!-- SAFARIS -->
+<section class="section-mangrove" id="safaris">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Departure Log</div>
+      <h2>Morning or evening — two very different lagoons</h2>
+      <p>Same boats, same channels, completely different light and wildlife. Most guests do one; many come back for the other.</p>
+    </div>
+    <div class="safari-grid">
+      <div class="safari-card morning">
+        <svg class="safari-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="23"/><line x1="4.2" y1="4.2" x2="6.3" y2="6.3"/><line x1="17.7" y1="17.7" x2="19.8" y2="19.8"/></svg>
+        <div class="time">06:00 — 08:00</div>
+        <div class="name">Sunrise Safari</div>
+        <p class="desc">The best window for wildlife — animals are active, the water is glassy, and the heat hasn't set in yet.</p>
+        <ul class="safari-list">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Pickup from 5:30 AM</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Best chance to see crocodiles &amp; water monitors</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Peak bird activity — storks, kingfishers, eagles</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Cool, calm water — smooth ride</li>
+        </ul>
+      </div>
+      <div class="safari-card evening">
+        <svg class="safari-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="14" r="5"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="3" y1="14" x2="1" y2="14"/><line x1="23" y1="14" x2="21" y2="14"/><line x1="20" y1="20" x2="4" y2="20"/></svg>
+        <div class="time">From 15:30</div>
+        <div class="name">Sunset Safari</div>
+        <p class="desc">A slower, golden-hour ride out to open water as the sky over Pottuvil turns amber, pink and gold.</p>
+        <ul class="safari-list">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Pickup from 3:00 PM</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Sunset over the open lagoon</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Monkeys settling in the mangroves at dusk</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Best for photos &amp; couples</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PACKAGES -->
+<section class="section-light" id="packages">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Safari Packages</div>
+      <h2>Share the boat, or have it to yourselves</h2>
+      <p>Every package includes life jackets, a local guide and bottled water. Sample pricing below — let us know your group size and we'll confirm the exact rate.</p>
+    </div>
+    <div class="pkg-grid">
+      <div class="pkg-card">
+        <div class="pkg-name">Sharing Safari</div>
+        <div class="pkg-sub">Morning or evening · small group boat</div>
+        <div class="pkg-price">$20<span> / person</span></div>
+        <ul class="pkg-feat">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Minimum 2 guests</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Shared boat, up to 6 people</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> ~2 hour safari</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Hotel pickup included</li>
+        </ul>
+        <a class="btn btn-outline dark" href="https://wa.me/940725715527?text=Hi!%20I'd%20like%20to%20book%20the%20Sharing%20Safari." target="_blank" rel="noopener">Enquire on WhatsApp</a>
+      </div>
+
+      <div class="pkg-card featured">
+        <div class="pkg-tag">Most Popular</div>
+        <div class="pkg-name">Private Safari</div>
+        <div class="pkg-sub">Morning or evening · your own boat &amp; guide</div>
+        <div class="pkg-price">$75<span> / boat (up to 4)</span></div>
+        <ul class="pkg-feat">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Exclusive boat, just your group</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Flexible route &amp; pace</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Choose your own departure time</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Hotel pickup included</li>
+        </ul>
+        <a class="btn btn-primary" href="https://wa.me/940725715527?text=Hi!%20I'd%20like%20to%20book%20the%20Private%20Safari." target="_blank" rel="noopener">Enquire on WhatsApp</a>
+      </div>
+
+      <div class="pkg-card">
+        <div class="pkg-name">Sunrise + Breakfast</div>
+        <div class="pkg-sub">Morning only · extended route</div>
+        <div class="pkg-price">$35<span> / person</span></div>
+        <ul class="pkg-feat">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Extended 3 hour safari</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Breakfast stop on a sandbank</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Sharing or private available</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Hotel pickup included</li>
+        </ul>
+        <a class="btn btn-outline dark" href="https://wa.me/940725715527?text=Hi!%20I'd%20like%20to%20book%20the%20Sunrise%20%2B%20Breakfast%20Safari." target="_blank" rel="noopener">Enquire on WhatsApp</a>
+      </div>
+    </div>
+    <p class="pkg-note">Children under 5 ride free. Group rates available for 6+ guests — message us on WhatsApp for a custom quote.</p>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="section-dark" id="gallery">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Gallery</div>
+      <h2>The lagoon, in every light</h2>
+    </div>
+    <p class="gallery-note">Sample gallery layout — swap these tiles for your own photos and video clips.</p>
+    <div class="gallery-grid">
+      <div class="gtile tall">
+        <svg viewBox="0 0 400 600" preserveAspectRatio="xMidYMid slice"><rect width="400" height="600" fill="#1b2e25"/><circle cx="200" cy="180" r="90" fill="#e3a83d"/><rect y="400" width="400" height="200" fill="#23382e"/><g stroke="#7e9a8c" stroke-width="3" fill="none" opacity="0.7"><path d="M40 600 C70 520 60 480 100 420"/><path d="M360 600 C330 520 340 480 300 420"/></g></svg>
+        <span>Sunrise over the lagoon</span>
+      </div>
+      <div class="gtile">
+        <svg viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice"><rect width="400" height="400" fill="#23382e"/><g stroke="#d98a5f" stroke-width="3" fill="none"><path d="M0 250 Q100 200 200 250 T400 250"/><path d="M0 300 Q100 260 200 300 T400 300"/></g></svg>
+        <span>Mangrove channels</span>
+      </div>
+      <div class="gtile">
+        <svg viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice"><rect width="400" height="400" fill="#2c4438"/><ellipse cx="200" cy="280" rx="120" ry="30" fill="#13231d"/><ellipse cx="200" cy="270" rx="100" ry="18" fill="#7e9a8c" opacity="0.6"/></svg>
+        <span>Crocodiles &amp; water monitors</span>
+      </div>
+      <div class="gtile">
+        <svg viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice"><rect width="400" height="400" fill="#1b2e25"/><path d="M150 250 Q200 180 250 250 Q230 260 200 230 Q170 260 150 250 Z" fill="#e3a83d"/></svg>
+        <span>Kingfishers &amp; herons</span>
+      </div>
+      <div class="gtile">
+        <svg viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice"><rect width="400" height="400" fill="#3c4a40"/><circle cx="160" cy="190" r="40" fill="#f4efe4" opacity="0.85"/><circle cx="240" cy="210" r="34" fill="#f4efe4" opacity="0.7"/></svg>
+        <span>Guests on safari</span>
+      </div>
+      <div class="gtile tall">
+        <svg viewBox="0 0 400 600" preserveAspectRatio="xMidYMid slice"><rect width="400" height="600" fill="#13231d"/><rect y="350" width="400" height="250" fill="#d98a5f" opacity="0.85"/><circle cx="200" cy="330" r="60" fill="#e3a83d"/></svg>
+        <span>Golden hour return</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<svg class="ripple" viewBox="0 0 1200 46" preserveAspectRatio="none" style="transform:scaleY(-1);"><path d="M0 24 Q150 4 300 24 T600 24 T900 24 T1200 24 V46 H0 Z" fill="#f4efe4"/></svg>
+
+<!-- PICKUP -->
+<section class="section-light" id="pickup">
+  <div class="wrap">
+    <div class="pickup-grid">
+      <div>
+        <div class="eyebrow" style="color:var(--dawn-blush)">Getting There</div>
+        <h2 style="font-size:clamp(28px,3.6vw,38px);margin-top:16px;margin-bottom:30px;">Free pickup from anywhere in Arugam Bay</h2>
+        <div class="pickup-list">
+          <div class="pickup-item">
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 12h18M3 12l5-7M3 12l5 7M21 12l-5-7M21 12l-5 7"/></svg></div>
+            <div><h4>Pickup zone</h4><p>Free tuk-tuk pickup from hotels and guesthouses along Main Street, Whiskey Point, Pottuvil and Ulla.</p></div>
+          </div>
+          <div class="pickup-item">
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 16 14"/></svg></div>
+            <div><h4>Pickup timing</h4><p>We collect guests 30 minutes before departure — 5:30 AM for sunrise, 3:00 PM for sunset safaris.</p></div>
+          </div>
+          <div class="pickup-item">
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+            <div><h4>Launch point</h4><p>Safaris depart from our jetty on Arugam Bay Lagoon, a short walk from the Pottuvil–Panama road.</p></div>
+          </div>
+          <div class="pickup-item">
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.69 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.33 1.85.56 2.81.69A2 2 0 0 1 22 16.92z"/></svg></div>
+            <div><h4>Not staying nearby?</h4><p>We also arrange pickup from Panama and surrounding areas — just ask when you message us.</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="map-frame">
+        <iframe src="https://www.google.com/maps?q=Arugam+Bay+Lagoon,+Sri+Lanka&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Arugam Bay Lagoon map"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="section-dark" id="reviews">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Guest Reviews</div>
+      <h2>Sample reviews — swap in your real guest feedback</h2>
+    </div>
+    <div class="review-grid">
+      <div class="review-card">
+        <div class="stars">
+          <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15 9 22 9 16.5 13.5 18.5 21 12 16.8 5.5 21 7.5 13.5 2 9 9 9"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15 9 22 9 16.5 13.5 18.5 21 12 16.8 5.5 21 7.5 13.5 2 9 9 9"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15 9 22 9 16.5 13.5 18.5 21 12 16.8 5.5 21 7.5 13.5 2 9 9 9"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15 9 22 9 16.5 13.5 18.5 21 12 16.8 5.5 21 7.5 13.5 2 9 9 9"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15 9 22 9 16.5 13.5 18.5 21 12 16.8 5.5 21 7.5 13.5 2 9 9 9"/></svg>
+        </div>
+        <p class="quote">Up at 5:30 AM and it was completely worth it — saw two crocodiles, dozens of birds, and barely another boat on the water. Our guide knew exactly where to look.</p>
+        <div class="review-who">
+          <div class="review-avatar">M</div>
+          <div><div class="review-name">Mara T.</div><div class="review-loc">Germany</div></div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="stars">
+          <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15 9 22 9 16.5 13.5 18.5 21 12 16.8 5.5 21 7.5 13.5 2 9 9 9"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15 9 22 9 16.5 13.5 18.5 21 12 16.8 5.5 21 7.5 13.5 2 9 9 9"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15 9 22 9 16.5 13.5 18.5 21 12 16.8 5.5 21 7.5 13.5 2 9 9 9"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15 9 22 9 16.5 13.5 18.5 21 12 16.8 5.5 21 7.5 13.5 2 9 9 9"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15 9 22 9 16.5 13.5 18.5 21 12 16.8 5.5 21 7.5 13.5 2 9 9 9"/></svg>
+        </div>
+        <p class="quote">Booked the private sunset safari for our anniversary. Having the boat to ourselves made it feel really special, and the colours on the water at golden hour were unreal.</p>
+        <div class="review-who">
+          <div class="review-avatar">J</div>
+          <div><div class="review-name">James &amp; Priya</div><div class="review-loc">United Kingdom</div></div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="stars">
+          <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15 9 22 9 16.5 13.5 18.5 21 12 16.8 5.5 21 7.5 13.5 2 9 9 9"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15 9 22 9 16.5 13.5 18.5 21 12 16.8 5.5 21 7.5 13.5 2 9 9 9"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15 9 22 9 16.5 13.5 18.5 21 12 16.8 5.5 21 7.5 13.5 2 9 9 9"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15 9 22 9 16.5 13.5 18.5 21 12 16.8 5.5 21 7.5 13.5 2 9 9 9"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15 9 22 9 16.5 13.5 18.5 21 12 16.8 5.5 21 7.5 13.5 2 9 9 9"/></svg>
+        </div>
+        <p class="quote">Easy to arrange on WhatsApp, free pickup right on time, and the kids loved spotting the monkeys at dusk. Good value for a sharing safari.</p>
+        <div class="review-who">
+          <div class="review-avatar">S</div>
+          <div><div class="review-name">Sandun R.</div><div class="review-loc">Colombo, Sri Lanka</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOK -->
+<section class="section-mangrove" id="book">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Book Your Safari</div>
+      <h2>Tell us when you'd like to go</h2>
+      <p>Send us your details and we'll confirm availability over WhatsApp within the hour.</p>
+    </div>
+    <div class="book-grid">
+      <div class="book-info">
+        <h3>Reach us directly</h3>
+        <div class="contact-row">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.39 1.27 4.81L2 22l5.42-1.36a9.93 9.93 0 0 0 4.62 1.14h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2z"/></svg></div>
+          <div><span class="contact-label">WhatsApp</span><a href="https://wa.me/940725715527" target="_blank" rel="noopener">+94 72 571 5527</a></div>
+        </div>
+        <div class="contact-row">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.69 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.33 1.85.56 2.81.69A2 2 0 0 1 22 16.92z"/></svg></div>
+          <div><span class="contact-label">Phone</span><a href="tel:+940725715527">072 571 5527</a></div>
+        </div>
+        <div class="contact-row">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div><span class="contact-label">Location</span><span>Arugam Bay Lagoon, Arugam Bay, Sri Lanka</span></div>
+        </div>
+        <div class="contact-row">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 16 14"/></svg></div>
+          <div><span class="contact-label">Departures</span><span>06:00 AM &amp; from 3:30 PM, daily</span></div>
+        </div>
+      </div>
+
+      <form id="bookingForm">
+        <div class="form-row">
+          <div class="field"><label for="fname">Full name</label><input id="fname" name="fname" type="text" placeholder="Your name" required></div>
+          <div class="field"><label for="fcontact">WhatsApp or email</label><input id="fcontact" name="fcontact" type="text" placeholder="How we reach you" required></div>
+        </div>
+        <div class="form-row">
+          <div class="field"><label for="fdate">Preferred date</label><input id="fdate" name="fdate" type="date"></div>
+          <div class="field">
+            <label for="fsafari">Safari</label>
+            <select id="fsafari" name="fsafari">
+              <option>Sunrise Safari (06:00)</option>
+              <option>Sunset Safari (15:30)</option>
+              <option>Sunrise + Breakfast</option>
+              <option>Not sure yet</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="field">
+            <label for="ftype">Boat type</label>
+            <select id="ftype" name="ftype">
+              <option>Sharing</option>
+              <option>Private</option>
+            </select>
+          </div>
+          <div class="field"><label for="fguests">Number of guests</label><input id="fguests" name="fguests" type="number" min="1" value="2"></div>
+        </div>
+        <div class="field"><label for="fmsg">Anything else?</label><textarea id="fmsg" name="fmsg" placeholder="Hotel name, pickup notes, special requests..."></textarea></div>
+        <button type="submit" class="btn btn-primary">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.39 1.27 4.81L2 22l5.42-1.36a9.93 9.93 0 0 0 4.62 1.14h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2zm5.78 14.06c-.25.69-1.24 1.27-2.01 1.43-.55.11-1.27.2-3.68-.79-3.09-1.28-5.08-4.41-5.23-4.61-.15-.2-1.25-1.66-1.25-3.17s.78-2.25 1.06-2.56c.27-.31.6-.38.8-.38.2 0 .4 0 .57.01.18.01.43-.07.67.51.25.6.85 2.07.92 2.22.07.15.12.33.02.53-.1.2-.15.32-.3.49-.15.17-.31.38-.45.51-.15.15-.3.31-.13.61.17.3.76 1.25 1.63 2.03 1.12 1 2.06 1.31 2.36 1.46.3.15.48.13.65-.08.18-.2.75-.87.95-1.17.2-.3.4-.25.67-.15.27.1 1.73.81 2.02.96.3.15.5.22.57.35.07.13.07.74-.18 1.43z"/></svg>
+          Send Booking Request via WhatsApp
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">Floating Lagoon Safari</div>
+        <p style="font-size:13.5px;margin-top:6px;">Arugam Bay Lagoon, Sri Lanka</p>
+      </div>
+      <div class="footer-links">
+        <a href="#about">About</a>
+        <a href="#safaris">Safaris</a>
+        <a href="#packages">Packages</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#reviews">Reviews</a>
+        <a href="tel:+940725715527">072 571 5527</a>
+        <a href="https://wa.me/940725715527" target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+    </div>
+    <p class="footer-fine">© 2026 Floating Lagoon Safari, Arugam Bay. All safaris subject to weather and tide conditions.</p>
+  </div>
+</footer>
+
+<a class="fab-wa" href="https://wa.me/940725715527?text=Hi!%20I'd%20like%20to%20know%20more%20about%20the%20lagoon%20safari." target="_blank" rel="noopener" aria-label="Message us on WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.39 1.27 4.81L2 22l5.42-1.36a9.93 9.93 0 0 0 4.62 1.14h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2zm5.78 14.06c-.25.69-1.24 1.27-2.01 1.43-.55.11-1.27.2-3.68-.79-3.09-1.28-5.08-4.41-5.23-4.61-.15-.2-1.25-1.66-1.25-3.17s.78-2.25 1.06-2.56c.27-.31.6-.38.8-.38.2 0 .4 0 .57.01.18.01.43-.07.67.51.25.6.85 2.07.92 2.22.07.15.12.33.02.53-.1.2-.15.32-.3.49-.15.17-.31.38-.45.51-.15.15-.3.31-.13.61.17.3.76 1.25 1.63 2.03 1.12 1 2.06 1.31 2.36 1.46.3.15.48.13.65-.08.18-.2.75-.87.95-1.17.2-.3.4-.25.67-.15.27.1 1.73.81 2.02.96.3.15.5.22.57.35.07.13.07.74-.18 1.43z"/></svg>
+</a>
+
+<script>
+  // header scroll state
+  const header = document.getElementById('siteHeader');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 30);
+  });
+
+  // mobile menu
+  const menu = document.getElementById('mobileMenu');
+  document.getElementById('navToggle').addEventListener('click', () => menu.classList.add('open'));
+  document.getElementById('navClose').addEventListener('click', () => menu.classList.remove('open'));
+  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => menu.classList.remove('open')));
+
+  // booking form -> whatsapp
+  document.getElementById('bookingForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    const f = e.target;
+    const name = f.fname.value.trim();
+    const contact = f.fcontact.value.trim();
+    const date = f.fdate.value || 'flexible';
+    const safari = f.fsafari.value;
+    const type = f.ftype.value;
+    const guests = f.fguests.value;
+    const msg = f.fmsg.value.trim();
+
+    let lines = [
+      "Hi! I'd like to book a safari.",
+      `Name: ${name}`,
+      `Contact: ${contact}`,
+      `Date: ${date}`,
+      `Safari: ${safari}`,
+      `Boat: ${type}`,
+      `Guests: ${guests}`
+    ];
+    if(msg) lines.push(`Notes: ${msg}`);
+    const text = lines.join("\n");
+
+    window.open(`https://wa.me/940725715527?text=${encodeURIComponent(text)}`, '_blank');
+  });
+</script>
+
+</body>
+</html>
